@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "buildCommand": "npm install && npm run build",
+  "outputDirectory": "build",
+  "devCommand": "npm run start",
+  "installCommand": "npm install --legacy-peer-deps",
+  "functions": {
+    "**/*.js": {
+      "maxDuration": 30
+    }
+  },
+  "env": {
+    "CI": "false"
+  }
+}
