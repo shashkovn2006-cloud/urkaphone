@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./RegisterWindow.css";
 import myImage from '../assets/imagregavt.png';
+import { authAPI } from '../api/api';
 
 export default function RegisterWindow({ onSwitchToLogin, onRegisterSuccess, onHomeClick, onRegister }) {
   const [formData, setFormData] = useState({
@@ -44,31 +45,17 @@ export default function RegisterWindow({ onSwitchToLogin, onRegisterSuccess, onH
     }
 
     try {
-      // МОК-РЕГИСТРАЦИЯ (временное решение для Vercel)
-      console.log('📝 Mock registration for:', formData.login);
-      
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          try {
-            // Всегда успешная регистрация для демо
-            const mockUser = {
-              id: Math.floor(Math.random() * 1000),
-              username: formData.login,
-              token: 'mock-jwt-token-' + Date.now()
-            };
-            
-            // Сохраняем в localStorage
-            localStorage.setItem('token', mockUser.token);
-            localStorage.setItem('user', JSON.stringify(mockUser));
-            
-            console.log('✅ Mock registration successful');
-            resolve(mockUser);
-          } catch (err) {
-            reject(new Error('Ошибка сохранения данных'));
-          }
-        }, 1500);
+      // ИСПОЛЬЗУЕМ РЕАЛЬНЫЙ API С RENDER БЭКЕНДОМ
+      const response = await authAPI.register({ 
+        username: formData.login, 
+        email: formData.login + '@example.com', 
+        password: formData.password 
       });
 
+      // Сохраняем данные пользователя
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      
       // Вызываем колбэк успеха если передан
       if (onRegisterSuccess) {
         onRegisterSuccess();
@@ -90,7 +77,7 @@ export default function RegisterWindow({ onSwitchToLogin, onRegisterSuccess, onH
       });
       
       // Показываем успех
-      alert('✅ Регистрация успешна! Добро пожаловать в Urka Phone!');
+      alert('✅ ' + response.data.message);
 
     } catch (error) {
       setError(error.message || 'Ошибка регистрации');

@@ -1,8 +1,8 @@
 // Автоматическое определение URL API
 const getApiBaseUrl = () => {
-  // В продакшене используем переменную окружения, в разработке - localhost
+  // В продакшене используем Render бэкенд, в разработке - localhost
   if (process.env.NODE_ENV === 'production') {
-    return process.env.REACT_APP_API_URL || 'https://urkaphone-backend.herokuapp.com/api';
+    return process.env.REACT_APP_API_URL || 'https://urkaphone-backend.onrender.com/api';
   }
   return 'http://localhost:5000/api';
 };
@@ -59,7 +59,7 @@ const apiRequest = async (endpoint, options = {}) => {
     
     // Более информативное сообщение об ошибке
     if (error.message.includes('Failed to fetch')) {
-      throw new Error('Не удалось подключиться к серверу. Убедитесь, что бэкенд запущен на порту 5000.');
+      throw new Error('Не удалось подключиться к серверу. Убедитесь, что бэкенд запущен.');
     }
     
     throw new Error(error.message || 'Сервер не отвечает корректно. Проверьте подключение.');

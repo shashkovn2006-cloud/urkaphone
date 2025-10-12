@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./LoginWindow.css";
 import myImage from "../assets/imagregavt.png";
+import { authAPI } from '../api/api';
 
 export default function LoginWindow({ onSwitchToRegister, onLoginSuccess, onHomeClick, onLogin }) {
   const [formData, setFormData] = useState({
@@ -48,31 +49,16 @@ export default function LoginWindow({ onSwitchToRegister, onLoginSuccess, onHome
     setIsLoading(true);
     
     try {
-      // МОК-ВХОД (временное решение для Vercel)
-      console.log('🔐 Mock login for:', formData.username);
-      
-      await new Promise((resolve, reject) => {
-        setTimeout(() => {
-          try {
-            // Всегда успешный вход для демо
-            const mockUser = {
-              id: Math.floor(Math.random() * 1000),
-              username: formData.username,
-              token: 'mock-jwt-token-' + Date.now()
-            };
-            
-            // Сохраняем в localStorage
-            localStorage.setItem('token', mockUser.token);
-            localStorage.setItem('user', JSON.stringify(mockUser));
-            
-            console.log('✅ Mock login successful');
-            resolve(mockUser);
-          } catch (err) {
-            reject(new Error('Ошибка сохранения данных'));
-          }
-        }, 1500);
+      // ИСПОЛЬЗУЕМ РЕАЛЬНЫЙ API С RENDER БЭКЕНДОМ
+      const response = await authAPI.login({ 
+        username: formData.username, 
+        password: formData.password 
       });
 
+      // Сохраняем данные пользователя
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      
       // Вызываем колбэк успеха если передан
       if (onLoginSuccess) {
         onLoginSuccess();
@@ -93,7 +79,7 @@ export default function LoginWindow({ onSwitchToRegister, onLoginSuccess, onHome
       });
       
       // Показываем успех
-      alert('✅ Вход выполнен! Добро пожаловать в Urka Phone!');
+      alert('✅ ' + response.data.message);
 
     } catch (error) {
       setErrors({ submit: error.message || "Неверное имя пользователя или пароль" });
