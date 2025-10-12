@@ -48,23 +48,54 @@ export default function LoginWindow({ onSwitchToRegister, onLoginSuccess, onHome
     setIsLoading(true);
     
     try {
-      // Используем переданную функцию входа из AuthContext
-      await onLogin({
-        login: formData.username,
-        password: formData.password
+      // МОК-ВХОД (временное решение для Vercel)
+      console.log('🔐 Mock login for:', formData.username);
+      
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          try {
+            // Всегда успешный вход для демо
+            const mockUser = {
+              id: Math.floor(Math.random() * 1000),
+              username: formData.username,
+              token: 'mock-jwt-token-' + Date.now()
+            };
+            
+            // Сохраняем в localStorage
+            localStorage.setItem('token', mockUser.token);
+            localStorage.setItem('user', JSON.stringify(mockUser));
+            
+            console.log('✅ Mock login successful');
+            resolve(mockUser);
+          } catch (err) {
+            reject(new Error('Ошибка сохранения данных'));
+          }
+        }, 1500);
       });
-      
-      // После успешного входа вызываем колбэк
-      onLoginSuccess();
-      
+
+      // Вызываем колбэк успеха если передан
+      if (onLoginSuccess) {
+        onLoginSuccess();
+      }
+
+      // Также вызываем onLogin если передан (для обратной совместимости)
+      if (onLogin) {
+        await onLogin({
+          login: formData.username,
+          password: formData.password
+        });
+      }
+
       // Сброс формы
       setFormData({
         username: "",
         password: ""
       });
       
+      // Показываем успех
+      alert('✅ Вход выполнен! Добро пожаловать в Urka Phone!');
+
     } catch (error) {
-      // Обработка ошибок сервера
       setErrors({ submit: error.message || "Неверное имя пользователя или пароль" });
     } finally {
       setIsLoading(false);

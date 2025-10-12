@@ -44,6 +44,37 @@ export default function RegisterWindow({ onSwitchToLogin, onRegisterSuccess, onH
     }
 
     try {
+      // МОК-РЕГИСТРАЦИЯ (временное решение для Vercel)
+      console.log('📝 Mock registration for:', formData.login);
+      
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          try {
+            // Всегда успешная регистрация для демо
+            const mockUser = {
+              id: Math.floor(Math.random() * 1000),
+              username: formData.login,
+              token: 'mock-jwt-token-' + Date.now()
+            };
+            
+            // Сохраняем в localStorage
+            localStorage.setItem('token', mockUser.token);
+            localStorage.setItem('user', JSON.stringify(mockUser));
+            
+            console.log('✅ Mock registration successful');
+            resolve(mockUser);
+          } catch (err) {
+            reject(new Error('Ошибка сохранения данных'));
+          }
+        }, 1500);
+      });
+
+      // Вызываем колбэк успеха если передан
+      if (onRegisterSuccess) {
+        onRegisterSuccess();
+      }
+
+      // Также вызываем onRegister если передан (для обратной совместимости)
       if (onRegister) {
         await onRegister({
           login: formData.login,
@@ -51,14 +82,16 @@ export default function RegisterWindow({ onSwitchToLogin, onRegisterSuccess, onH
         });
       }
 
-      onRegisterSuccess();
-
-      // Можно сбросить форму после успешной регистрации
+      // Сбрасываем форму
       setFormData({
         login: '',
         password: '',
         confirmPassword: ''
       });
+      
+      // Показываем успех
+      alert('✅ Регистрация успешна! Добро пожаловать в Urka Phone!');
+
     } catch (error) {
       setError(error.message || 'Ошибка регистрации');
     } finally {
