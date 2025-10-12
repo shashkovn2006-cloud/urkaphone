@@ -1,0 +1,169 @@
+/* ===== ГЛОБАЛЬНАЯ АДАПТИВНОСТЬ ДЛЯ ВСЕХ СТРАНИЦ ===== */
+
+/* Большие мониторы (1920px+) */
+@media (min-width: 1920px) {
+  .container-wide {
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+  
+  .content-grid-wide {
+    grid-template-columns: 350px 1fr 350px;
+    gap: 30px;
+  }
+  
+  .image-large {
+    max-height: 500px;
+  }
+}
+
+/* Стандартные мониторы (1200px - 1920px) - базовые стили */
+
+/* Ноутбуки (1024px - 1200px) */
+@media (max-width: 1200px) {
+  .content-grid {
+    grid-template-columns: 300px 1fr 300px;
+    gap: 20px;
+  }
+  
+  .header-compact {
+    padding: 18px 25px;
+  }
+  
+  .title-medium {
+    font-size: 2rem;
+  }
+  
+  .panel-compact {
+    padding: 20px;
+  }
+  
+  .image-medium {
+    max-height: 350px;
+  }
+  
+  .scroll-list-compact {
+    max-height: 250px;
+  }
+}
+
+/* Минимальная компьютерная ширина (1024px) */
+@media (max-width: 1024px) {
+  .page-padding-compact {
+    padding: 15px;
+  }
+  
+  .content-grid-compact {
+    grid-template-columns: 280px 1fr 280px;
+    gap: 16px;
+  }
+  
+  .header-tight {
+    padding: 16px 20px;
+  }
+  
+  .title-small {
+    font-size: 1.8rem;
+  }
+  
+  .timer-compact {
+    font-size: 1.3rem;
+    padding: 10px 20px;
+  }
+  
+  .image-small {
+    max-height: 300px;
+  }
+  
+  .card-tight {
+    padding: 14px 18px;
+  }
+  
+  .stats-grid-compact {
+    gap: 8px;
+  }
+  
+  .stat-box-compact {
+    padding: 14px 8px;
+  }
+}
+
+/* Аварийный режим (900px) */
+@media (max-width: 900px) {
+  .content-grid-emergency {
+    grid-template-columns: 250px 1fr 250px;
+  }
+  
+  .panel-emergency {
+    padding: 16px;
+  }
+  
+  .input-compact {
+    padding: 14px;
+  }
+}
+
+/* Защита от слишком маленьких окон */
+.page-container {
+  min-width: 800px;
+}
+
+.content-area {
+  min-height: 500px;
+}
+
+/* Общие классы для всех страниц */
+.page-wrapper {
+  min-width: 800px;
+  padding: 20px;
+}
+
+@media (max-width: 1200px) {
+  .page-wrapper {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .page-wrapper {
+    padding: 10px;
+  }
+}
+
+.grid-layout {
+  display: grid;
+  gap: 24px;
+}
+
+@media (max-width: 1200px) {
+  .grid-layout {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .grid-layout {
+    gap: 16px;
+  }
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 1200px) {
+  .card {
+    padding: 20px;
+    border-radius: 14px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+}

@@ -1,0 +1,437 @@
+.create-words-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 15px;
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
+}
+
+.words-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 15px 25px;
+  border-radius: 16px;
+  margin-bottom: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.back-button {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.back-button:hover {
+  background: #ff5252;
+  transform: translateX(-2px);
+}
+
+.words-title h1 {
+  margin: 0;
+  color: #333;
+  font-size: 1.6rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.room-info {
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.timer-section {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.timer {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4CAF50;
+  background: rgba(76, 175, 80, 0.1);
+  padding: 8px 16px;
+  border-radius: 25px;
+  border: 2px solid #4CAF50;
+}
+
+.timer.urgent {
+  color: #ff4444;
+  border-color: #ff4444;
+  background: rgba(255, 68, 68, 0.1);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.words-content {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 15px;
+  max-width: 1400px;
+  margin: 0 auto;
+  height: calc(100vh - 120px);
+  min-height: 500px;
+}
+
+.words-input-panel {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.input-section h2 {
+  color: #333;
+  margin-bottom: 12px;
+  font-size: 1.5rem;
+}
+
+.instruction {
+  color: #666;
+  margin-bottom: 20px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.word-input-container {
+  margin-bottom: 20px;
+}
+
+.word-input {
+  width: 100%;
+  max-width: 350px;
+  padding: 15px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  box-sizing: border-box;
+}
+
+.word-input:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+.prompts-section {
+  margin-bottom: 20px;
+}
+
+.prompts-section h3 {
+  margin-bottom: 12px;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.prompts-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.prompt-tag {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.prompt-tag:hover {
+  background: rgba(102, 126, 234, 0.2);
+}
+
+.tips-section {
+  margin-bottom: 20px;
+}
+
+.tips-section h3 {
+  margin-bottom: 12px;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.tips-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  max-width: 350px;
+  margin: 0 auto;
+}
+
+.tip-item {
+  background: rgba(76, 175, 80, 0.1);
+  color: #2e7d32;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.submit-words-btn {
+  width: 100%;
+  max-width: 280px;
+  padding: 16px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0 auto;
+  display: block;
+}
+
+.submit-words-btn.active:hover {
+  background: #45a049;
+  transform: translateY(-2px);
+}
+
+.submit-words-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.submitted-message {
+  text-align: center;
+  padding: 20px;
+  background: rgba(76, 175, 80, 0.1);
+  border: 2px solid #4CAF50;
+  border-radius: 12px;
+  color: #2e7d32;
+  max-width: 350px;
+  margin: 0 auto;
+}
+
+.success-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.success-text h3 {
+  margin: 0 0 8px 0;
+  color: #2e7d32;
+  font-size: 1.2rem;
+}
+
+.success-text p {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.waiting-text {
+  color: #666;
+  font-style: italic;
+  font-size: 14px;
+}
+
+.players-status-panel {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.players-status-panel h2 {
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.players-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 200px;
+}
+
+.player-status-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.player-status-item:hover {
+  transform: translateX(3px);
+  background: #e9ecef;
+}
+
+.player-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #667eea;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.player-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.player-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.you-badge {
+  color: #667eea;
+  font-size: 11px;
+  margin-left: 4px;
+}
+
+.status {
+  font-size: 11px;
+  color: #666;
+}
+
+.status.submitted {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.progress-section {
+  margin-bottom: 15px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: #e9ecef;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50, #45a049);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+}
+
+.rules-section {
+  background: rgba(102, 126, 234, 0.05);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(102, 126, 234, 0.1);
+  margin-top: auto;
+}
+
+.rules-section h3 {
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.rules-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.rules-section li {
+  padding: 6px 0;
+  color: #555;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+/* Гарантия что всё влезет */
+* {
+  box-sizing: border-box;
+}
+
+.create-words-container {
+  overflow: hidden;
+}
+
+.words-content {
+  overflow: hidden;
+}
+
+.words-input-panel {
+  overflow: hidden;
+}
+
+/* Анимации */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.words-input-panel,
+.players-status-panel {
+  animation: slideIn 0.6s ease-out;
+}
