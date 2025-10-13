@@ -1,3 +1,4 @@
+import { DEPLOY_FLAG } from './config/deploy-flag';
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import MainScreen from './pages/MainScreen';
